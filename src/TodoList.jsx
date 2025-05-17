@@ -42,10 +42,20 @@ export default function Todo(){
 
     let markAsDone=(done,id)=>{
         setTodo((prev)=>prev.map((prevTodo)=>{
-            if(prevTodo.id===id){
+            if(prevTodo.id===id && prevTodo.isDone===false){
                 return {...prevTodo,isDone:true};
             }else{
                 return prevTodo
+            }
+        }));
+
+    }
+     let markAsDoneremove=(done,id)=>{
+        setTodo((prev)=>prev.map((prevTodo)=>{
+            if(prevTodo.id===id && prevTodo.isDone===false){
+                return {...prevTodo,isDone:true};
+            }else if(prevTodo.id===id && prevTodo.isDone===true){
+                return {...prevTodo,isDone:false};
             }
         }));
 
@@ -75,6 +85,7 @@ export default function Todo(){
                         delete
                     </button>
                     <button onClick={()=>markAsDone(todo.isDone,todo.id)}>MarkDone</button>
+                    <button onDoubleClick={()=>markAsDoneremove(todo.isDone,todo.id)}>MarkDoneAll</button>
                     </li>
                     :
                     <li key={todo.id} style={{color:"white"}}>
@@ -84,6 +95,7 @@ export default function Todo(){
                         delete
                     </button>
                     <button onClick={()=>markAsDone(todo.isDone,todo.id)}>MarkDone</button>
+                    <button onDoubleClick={()=>markAsDoneremove(todo.isDone,todo.id)}>MarkDoneAll</button>
                     </li>
                 })}
         </ul>
